@@ -8,9 +8,8 @@ const secret = "hrghxkAPyQwpNbzqa3lyPjfGIKg0pQHzhRzrNEg"
 
 module.exports.search = async function(req, res){
 
-    query = req.params.query
-
-    var url = util.format("https://www.goodreads.com/search.xml?key=%s&q=Ender%27s+Game", key, query)
+    query = encodeURIComponent(req.body.query) //Deals with spaces and other special characters
+    var url = util.format("https://www.goodreads.com/search.xml?key=%s&q=%s", key, query)
 
     console.log(query)
     console.log(url)
@@ -28,3 +27,5 @@ module.exports.search = async function(req, res){
     console.log(json.GoodreadsResponse["search"]["results"]["work"])
     res.send(json.GoodreadsResponse["search"]["results"]["work"])
 }
+
+console.log(encodeURIComponent("Ender's Game"));
